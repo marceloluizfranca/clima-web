@@ -49,7 +49,7 @@ O workflow `.github/workflows/ci-cd.yaml` tem três jobs:
 
 1. **testes**: gera a imagem, sobe o container e verifica as rotas do site, a probe e o `502` quando a API está fora do ar.
 2. **imagem**: em push na `main` ou em tag `vX.Y.Z`, gera a imagem arm64 e publica em `ghcr.io/marceloluizfranca/clima-web` com as tags `sha-<commit>`, `latest` e a versão semver.
-3. **deploy**: roda no runner self-hosted `clima-web`, dentro do cluster kind. Aplica `k8s/` com a imagem do commit e espera o rollout terminar.
+3. **deploy**: roda no runner self-hosted `clima-web`, dentro do cluster kind. Aplica `k8s/` com a imagem gerada no job anterior, referenciada pela digest (imutável), e espera o rollout terminar.
 
 ## Segurança
 
