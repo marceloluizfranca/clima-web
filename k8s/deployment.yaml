@@ -25,7 +25,7 @@ spec:
               containerPort: 8080
           env:
             - name: API_UPSTREAM
-              value: clima-api.clima.svc.cluster.local:80
+              value: clima-api.app.svc.cluster.local:80
           readinessProbe:
             httpGet:
               path: /healthz
