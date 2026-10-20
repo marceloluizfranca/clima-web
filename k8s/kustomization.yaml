@@ -1,0 +1,12 @@
+# Roda no mesmo namespace da clima-api. O namespace e as permissões do
+# runner são criados na integração com a plataforma (ver README).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: clima
+labels:
+  - pairs:
+      app.kubernetes.io/name: clima-web
+    includeSelectors: true
+resources:
+  - deployment.yaml
+  - service.yaml
