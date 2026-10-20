@@ -6,7 +6,8 @@ const ICONES_WMO = [
   [[1], "🌤️"],
   [[2], "⛅"],
   [[3], "☁️"],
-  [[45, 48], "🌫️"],
+  // O emoji de neblina aparece como uma mancha em alguns sistemas
+  [[45, 48], "☁️"],
   [[51, 53, 55, 56, 57], "🌦️"],
   [[61, 63, 66, 80, 81], "🌧️"],
   [[65, 67, 82], "⛈️"],
@@ -23,6 +24,11 @@ const modelo = document.getElementById("modelo-cartao");
 function icone(codigo) {
   const encontrado = ICONES_WMO.find(([codigos]) => codigos.includes(codigo));
   return encontrado ? encontrado[1] : "🌡️";
+}
+
+// "sha-<40 caracteres>" vira "sha-<7 caracteres>", como no git
+function versaoCurta(versao) {
+  return versao.replace(/^sha-([0-9a-f]{7})[0-9a-f]+$/, "sha-$1");
 }
 
 function formatarData(iso) {
@@ -134,12 +140,12 @@ if (inicial.get("cidade")) {
 // Versões exibidas no rodapé: a do site vem do build, a da API do /readyz
 fetch("/versao.json")
   .then((r) => r.json())
-  .then(({ versao }) => (document.getElementById("versao-web").textContent = versao))
+  .then(({ versao }) => (document.getElementById("versao-web").textContent = versaoCurta(versao)))
   .catch(() => {});
 
 fetch("/readyz")
   .then((r) => r.json())
   .then(({ versao }) => {
-    if (versao) document.getElementById("versoes").append(` · api ${versao}`);
+    if (versao) document.getElementById("versoes").append(` · api ${versaoCurta(versao)}`);
   })
   .catch(() => {});
