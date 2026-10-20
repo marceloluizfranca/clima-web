@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clima hoje</title>
+  <meta name="description" content="Previsão do tempo para hoje, por cidade ou pela sua localização.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛅</text></svg>">
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="topo">
+      <h1>Clima hoje</h1>
+      <p class="subtitulo">Previsão do tempo para o dia, por cidade ou pela sua localização.</p>
+    </header>
+
+    <form id="busca" class="busca" autocomplete="off">
+      <label for="cidade" class="oculto">Cidade</label>
+      <input id="cidade" name="cidade" type="search" placeholder="Digite uma cidade, ex.: Recife" minlength="2" required>
+      <button type="submit" class="botao primario">Buscar</button>
+      <button type="button" id="localizacao" class="botao secundario" title="Usar minha localização">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a1 1 0 0 1 1 1v1.07A8 8 0 0 1 19.93 11H21a1 1 0 1 1 0 2h-1.07A8 8 0 0 1 13 19.93V21a1 1 0 1 1-2 0v-1.07A8 8 0 0 1 4.07 13H3a1 1 0 1 1 0-2h1.07A8 8 0 0 1 11 4.07V3a1 1 0 0 1 1-1Zm0 4a6 6 0 1 0 0 12 6 6 0 0 0 0-12Zm0 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z"/></svg>
+        <span>Minha localização</span>
+      </button>
+    </form>
+
+    <div class="atalhos" aria-label="Cidades sugeridas">
+      <button type="button" data-cidade="São Paulo">São Paulo</button>
+      <button type="button" data-cidade="Rio de Janeiro">Rio de Janeiro</button>
+      <button type="button" data-cidade="Recife">Recife</button>
+      <button type="button" data-cidade="Porto Alegre">Porto Alegre</button>
+      <button type="button" data-cidade="Manaus">Manaus</button>
+    </div>
+
+    <section id="resultado" class="resultado" aria-live="polite">
+      <div class="vazio">
+        <span class="vazio-icone" aria-hidden="true">🌤️</span>
+        <p>Busque uma cidade para ver a previsão de hoje.</p>
+      </div>
+    </section>
+
+    <footer class="rodape">
+      <span>Dados: <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a></span>
+      <span>·</span>
+      <a href="/docs" target="_blank" rel="noopener">API</a>
+      <span>·</span>
+      <span id="versoes">web <span id="versao-web">dev</span></span>
+    </footer>
+  </main>
+
+  <template id="modelo-cartao">
+    <article class="cartao">
+      <header class="cartao-topo">
+        <div>
+          <h2 class="local"></h2>
+          <p class="regiao"></p>
+        </div>
+        <p class="data"></p>
+      </header>
+
+      <div class="principal">
+        <span class="icone" aria-hidden="true"></span>
+        <div>
+          <p class="temperatura"><span class="atual"></span><span class="unidade">°C</span></p>
+          <p class="condicao"></p>
+        </div>
+      </div>
+
+      <div class="faixa" aria-label="Variação de temperatura">
+        <span class="minima"></span>
+        <div class="barra"><div class="preenchimento"></div></div>
+        <span class="maxima"></span>
+      </div>
+
+      <dl class="detalhes">
+        <div><dt>Chance de chuva</dt><dd class="chuva-prob"></dd></div>
+        <div><dt>Precipitação</dt><dd class="chuva-total"></dd></div>
+        <div><dt>Vento máximo</dt><dd class="vento"></dd></div>
+      </dl>
+
+      <p class="coordenadas"></p>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

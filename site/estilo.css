@@ -1,0 +1,344 @@
+:root {
+  --fundo: #f4f6fa;
+  --fundo-gradiente: #e3ebf7;
+  --superficie: #ffffff;
+  --borda: #dde3ec;
+  --texto: #18202c;
+  --texto-suave: #5b6676;
+  --destaque: #2563eb;
+  --destaque-texto: #ffffff;
+  --frio: #38bdf8;
+  --quente: #f97316;
+  --erro-fundo: #fef2f2;
+  --erro-texto: #991b1b;
+  --sombra: 0 10px 30px rgb(15 23 42 / 0.08);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #0d1320;
+    --fundo-gradiente: #16213a;
+    --superficie: #151d2c;
+    --borda: #263247;
+    --texto: #e7ecf3;
+    --texto-suave: #98a3b5;
+    --destaque: #3b82f6;
+    --erro-fundo: #2a1416;
+    --erro-texto: #fca5a5;
+    --sombra: 0 10px 30px rgb(0 0 0 / 0.35);
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--texto);
+  background: linear-gradient(180deg, var(--fundo-gradiente), var(--fundo) 420px);
+  -webkit-font-smoothing: antialiased;
+}
+
+.pagina {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 48px 16px 32px;
+}
+
+.topo h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitulo {
+  margin: 6px 0 24px;
+  color: var(--texto-suave);
+}
+
+.oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* Busca */
+
+.busca {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.busca input {
+  flex: 1 1 220px;
+  min-width: 0;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  outline: none;
+}
+
+.busca input:focus {
+  border-color: var(--destaque);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--destaque) 25%, transparent);
+}
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  font: inherit;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.botao:disabled { opacity: 0.6; cursor: progress; }
+
+.primario {
+  color: var(--destaque-texto);
+  background: var(--destaque);
+}
+
+.secundario {
+  color: var(--texto);
+  background: var(--superficie);
+  border-color: var(--borda);
+}
+
+.secundario svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.atalhos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0 28px;
+}
+
+.atalhos button {
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--texto-suave);
+  background: transparent;
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.atalhos button:hover {
+  color: var(--texto);
+  border-color: var(--texto-suave);
+}
+
+/* Estados */
+
+.vazio,
+.erro,
+.carregando {
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--texto-suave);
+  background: var(--superficie);
+  border: 1px dashed var(--borda);
+  border-radius: 16px;
+}
+
+.vazio-icone { font-size: 2.5rem; }
+
+.erro {
+  color: var(--erro-texto);
+  background: var(--erro-fundo);
+  border-style: solid;
+  border-color: transparent;
+}
+
+.carregando::before {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 12px;
+  border: 3px solid var(--borda);
+  border-top-color: var(--destaque);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar { to { transform: rotate(360deg); } }
+
+/* Cartão da previsão */
+
+.cartao {
+  padding: 24px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  box-shadow: var(--sombra);
+  animation: surgir 0.25s ease-out;
+}
+
+@keyframes surgir {
+  from { opacity: 0; transform: translateY(6px); }
+}
+
+.cartao-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.local {
+  margin: 0;
+  font-size: 1.375rem;
+}
+
+.regiao,
+.data {
+  margin: 2px 0 0;
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+}
+
+.data { text-align: right; white-space: nowrap; }
+
+.principal {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.icone {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.temperatura {
+  margin: 0;
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.unidade {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--texto-suave);
+  vertical-align: top;
+}
+
+.condicao {
+  margin: 6px 0 0;
+  font-size: 1.125rem;
+  color: var(--texto-suave);
+}
+
+.faixa {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.minima { color: var(--frio); }
+.maxima { color: var(--quente); }
+
+.barra {
+  position: relative;
+  flex: 1;
+  height: 6px;
+  background: var(--borda);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.preenchimento {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--frio), var(--quente));
+}
+
+.preenchimento::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: var(--posicao-atual, 50%);
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  background: var(--superficie);
+  border: 3px solid var(--texto);
+  border-radius: 50%;
+}
+
+.barra { overflow: visible; }
+
+.detalhes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 24px 0 0;
+}
+
+.detalhes div {
+  padding: 12px;
+  background: var(--fundo);
+  border-radius: 12px;
+}
+
+.detalhes dt {
+  font-size: 0.8125rem;
+  color: var(--texto-suave);
+}
+
+.detalhes dd {
+  margin: 4px 0 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.coordenadas {
+  margin: 16px 0 0;
+  font-size: 0.8125rem;
+  color: var(--texto-suave);
+}
+
+.rodape {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+  font-size: 0.8125rem;
+  color: var(--texto-suave);
+}
+
+.rodape a { color: inherit; }
+
+@media (max-width: 480px) {
+  .pagina { padding-top: 32px; }
+  .secundario span { display: none; }
+  .temperatura { font-size: 3rem; }
+  .detalhes { grid-template-columns: 1fr; }
+}
